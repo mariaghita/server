@@ -33,7 +33,7 @@ const createBook = async (ctx, book, response) => {
       book.userId = userId;
       response.body = await bookStore.insert(book);
       response.status = 201; // created
-      broadcast(userId, { type: 'created', payload: book });
+      broadcast(userId, { type: 'created', payload: ctx.response.body });
     } catch (err) {
       response.body = { message: err.message };
       response.status = 400; // bad request
